@@ -35,6 +35,34 @@
                     </li>
                 </ul>
             </li>
+
+            <li class="{{ request()->is('admin/roles/*') ? 'active open' : '' }}">
+                <a href="javascript:void(0);" class="menu-toggle">
+                    <i class="zmdi zmdi-lock"></i><span>Roles</span>
+                </a>
+                <ul class="ml-menu">
+                    <li class="{{ request()->is('admin/roles/list-roles') ? 'active' : '' }}">
+                        <a wire:navigate href="{{ route('list-roles') }}">List Roles</a>
+                    </li>
+                    <li class="{{ request()->is('admin/roles/new-role') ? 'active' : '' }}">
+                        <a wire:navigate href="{{ route('new-role') }}">New Role</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="{{ request()->is('admin/permissions/*') ? 'active open' : '' }}">
+                <a href="javascript:void(0);" class="menu-toggle">
+                    <i class="zmdi zmdi-key"></i><span>Permissions</span>
+                </a>
+                <ul class="ml-menu">
+                    <li class="{{ request()->is('admin/permissions/list-permissions') ? 'active' : '' }}">
+                        <a wire:navigate href="{{ route('list-permissions') }}">List Permissions</a>
+                    </li>
+                    <li class="{{ request()->is('admin/permissions/new-permission') ? 'active' : '' }}">
+                        <a wire:navigate href="{{ route('new-permission') }}">New Permission</a>
+                    </li>
+                </ul>
+            </li>
+
             <li><a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-apps"></i><span>App</span></a>
                 <ul class="ml-menu">
                     <li><a href="mail-inbox.html">Email</a></li>

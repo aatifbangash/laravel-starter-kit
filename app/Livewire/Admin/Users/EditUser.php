@@ -29,7 +29,6 @@ class EditUser extends Component
     public function update()
     {
         $this->validate();
-
         $this->user->update([
             'name' => $this->name
         ]);
