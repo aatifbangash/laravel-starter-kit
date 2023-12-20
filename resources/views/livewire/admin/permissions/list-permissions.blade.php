@@ -6,10 +6,18 @@
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12">
                     <div class="card">
-                        <x-alert-success />
+                        <x-alert-success/>
                         <div class="header">
                             <h2><strong>List</strong> Permissions</h2>
                         </div>
+
+                        <button
+                            type="button"
+                            class="btn btn-default waves-effect m-r-20 float-right"
+                            wire:click="add">
+                            Add Permission
+                        </button>
+                        {{--                        <livewire:admin.permissions.permission-modal />--}}
                         <div class="body">
                             <div class="table-responsive">
                                 <table class="table table-hover table-striped">
@@ -29,21 +37,19 @@
                                                 <td>{{ $permission->name }}</td>
                                                 <td>{{ $permission->created_at->diffForHumans() }}</td>
                                                 <td>
-                                                    <a
+                                                    <button
                                                         class="btn btn-danger btn-icon float-left"
                                                         type="button"
                                                         wire:click="delete({{$permission->id}})"
                                                         wire:confirm="Are you sure?"
                                                     >
                                                         <i class="zmdi zmdi-delete"></i></i>
-                                                    </a>
-                                                    <a
-                                                        class="btn btn-secondary btn-icon float-left"
-                                                        wire:navigate
-                                                        href="{{ route('edit-permission', $permission->id) }}"
-                                                    >
+                                                    </button>
+                                                    <button type="button"
+                                                            class="btn btn-secondary btn-icon float-left"
+                                                            wire:click="edit({{$permission->id}})">
                                                         <i class="zmdi zmdi-edit"></i>
-                                                    </a>
+                                                    </button>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -67,4 +73,7 @@
             <!-- #END# Hover Rows -->
         </div>
     </div>
+
+    @include("livewire.admin.permissions.permission-modal")
 </section>
+

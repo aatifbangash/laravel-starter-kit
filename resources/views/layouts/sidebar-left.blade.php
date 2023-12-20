@@ -57,8 +57,27 @@
                     <li class="{{ request()->is('admin/permissions/list-permissions') ? 'active' : '' }}">
                         <a wire:navigate href="{{ route('list-permissions') }}">List Permissions</a>
                     </li>
-                    <li class="{{ request()->is('admin/permissions/new-permission') ? 'active' : '' }}">
-                        <a wire:navigate href="{{ route('new-permission') }}">New Permission</a>
+                </ul>
+            </li>
+
+            <li class="{{ request()->is('admin/permissions/*') ? 'active open' : '' }}">
+                <a href="javascript:void(0);" class="menu-toggle">
+                    <i class="zmdi zmdi-file-text"></i><span>Pages</span>
+                </a>
+                <ul class="ml-menu">
+                    <li class="{{ request()->is('admin/permissions/list-permissions') ? 'active' : '' }}">
+                        <a wire:navigate href="{{ route('list-permissions') }}">List Pages</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="{{ request()->is('admin/permissions/*') ? 'active open' : '' }}">
+                <a href="javascript:void(0);" class="menu-toggle">
+                    <i class="zmdi zmdi-view-module"></i><span>Modules</span>
+                </a>
+                <ul class="ml-menu">
+                    <li class="{{ request()->is('admin/permissions/list-permissions') ? 'active' : '' }}">
+                        <a wire:navigate href="{{ route('list-permissions') }}">List Modules</a>
                     </li>
                 </ul>
             </li>

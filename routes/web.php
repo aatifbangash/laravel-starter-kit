@@ -58,11 +58,5 @@ Route::prefix('admin')->group(function () {
         Route::get('/list-permissions', ListPermissions::class)
             ->middleware('auth')
             ->name('list-permissions');
-        Route::get('/new-permission', NewPermission::class)
-            ->middleware('auth')
-            ->name('new-permission');
-        Route::get('/edit-permission/{permission}', EditPermission::class)
-            ->middleware('auth')
-            ->name('edit-permission');
     });
 });
