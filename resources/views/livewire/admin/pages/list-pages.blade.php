@@ -55,16 +55,16 @@
                                                 </td>
                                             </tr>
                                         @endforeach
+                                        <tr>
+                                            <td colspan="5">
+                                                {{ $pages->links('livewire::bootstrap') }}
+                                            </td>
+                                        </tr>
                                     @else
                                         <tr>
                                             <td colspan="5">Not data found.</td>
                                         </tr>
                                     @endif
-                                    <tr>
-                                        <td colspan="4">
-                                            {{ $pages->links('livewire::bootstrap') }}
-                                        </td>
-                                    </tr>
                                     </tbody>
                                 </table>
                             </div>

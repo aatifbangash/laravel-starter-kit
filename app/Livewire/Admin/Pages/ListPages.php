@@ -28,17 +28,20 @@ class ListPages extends Component
                 'handle' => "unique:pages,handle,$this->editId"
             ];
             $this->validate($validationRules);
-            dd(Page::findById(1));
-            Page::findById($this->editId)->update([
+            $page = Page::find($this->editId);
+            $this->revokePermissionForPage($page->handle);
+            $page->update([
                 'name' => $this->name,
                 'handle' => $this->handle,
             ]);
+            $this->createPermissionForPage($this->handle);
         } else {
             $this->validate();
             Page::create([
                 'name' => $this->name,
                 'handle' => $this->handle
             ]);
+            $this->createPermissionForPage($this->handle);
         }
         session()->flash("success", sprintf(
                 "New page %s successfully.",
@@ -46,6 +49,20 @@ class ListPages extends Component
             )
         );
         $this->dispatch('closeModal');
+    }
+
+    public function createPermissionForPage($pageHandle)
+    {
+        foreach (['read', 'create', 'update', 'delete'] as $permission) {
+            Permission::create(['name' => $permission . ' ' . $pageHandle]);
+        }
+    }
+
+    public function revokePermissionForPage($pageHandle)
+    {
+        foreach (['read', 'create', 'update', 'delete'] as $permission) {
+            Permission::where(['name' => $permission . ' ' . $pageHandle])->delete();
+        }
     }
 
     public function add()
@@ -63,10 +80,11 @@ class ListPages extends Component
         $this->dispatch('openModal');
     }
 
-    public function delete(Permission $permission)
+    public function delete(Page $page)
     {
-        $permission->delete();
-        session()->flash('success', 'Permission deleted successfully.');
+        $page->delete();
+        $this->revokePermissionForPage($page->handle);
+        session()->flash('success', 'Page deleted successfully.');
     }
 
     public function resetModal()

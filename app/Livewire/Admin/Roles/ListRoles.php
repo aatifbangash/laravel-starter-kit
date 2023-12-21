@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Admin\Roles;
 
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Spatie\Permission\Models\Role;
@@ -9,6 +10,8 @@ use Spatie\Permission\Models\Role;
 class ListRoles extends Component
 {
     use WithPagination;
+
+    public string $pageHandle = 'roles';
 
     public function delete(Role $role)
     {

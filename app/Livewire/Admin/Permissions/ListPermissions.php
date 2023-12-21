@@ -11,6 +11,8 @@ class ListPermissions extends Component
 {
     use WithPagination;
 
+    private string $pageHandler = 'permissions';
+
     #[Rule(['string', 'required', 'unique:permissions,name'])]
     public string $name;
     public ?int $editId = null;
@@ -36,12 +38,14 @@ class ListPermissions extends Component
 
     public function add()
     {
+        $this->authorize("create $this->pageHandler");
         $this->resetModal();
         $this->dispatch('openModal');
     }
 
     public function edit(Permission $permission)
     {
+        $this->authorize("update $this->pageHandler");
         $this->resetModal();
         $this->editId = $permission->id;
         $this->name = $permission->name;
@@ -50,6 +54,7 @@ class ListPermissions extends Component
 
     public function delete(Permission $permission)
     {
+        $this->authorize("delete $this->pageHandler");
         $permission->delete();
         session()->flash('success', 'Permission deleted successfully.');
     }
@@ -60,10 +65,14 @@ class ListPermissions extends Component
         $this->resetErrorBag();
         $this->resetValidation();
     }
-    
+
     public function render()
     {
+        $this->authorize("read $this->pageHandler");
+
         return view('livewire.admin.permissions.list-permissions', [
+            'title' => 'Permissions',
+            'pageHandler' => $this->pageHandler,
             'permissions' => Permission::oldest('name')->paginate(15)
         ]);
     }

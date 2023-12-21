@@ -10,13 +10,14 @@
                         <div class="header">
                             <h2><strong>List</strong> Permissions</h2>
                         </div>
-
-                        <button
-                            type="button"
-                            class="btn btn-default waves-effect m-r-20 float-right"
-                            wire:click="add">
-                            Add Permission
-                        </button>
+                        @can("create $pageHandler")
+                            <button
+                                type="button"
+                                class="btn btn-default waves-effect m-r-20 float-right"
+                                wire:click="add">
+                                Add Permission
+                            </button>
+                        @endcan
                         {{--                        <livewire:admin.permissions.permission-modal />--}}
                         <div class="body">
                             <div class="table-responsive">
@@ -37,19 +38,23 @@
                                                 <td>{{ $permission->name }}</td>
                                                 <td>{{ $permission->created_at->diffForHumans() }}</td>
                                                 <td>
-                                                    <button
-                                                        class="btn btn-danger btn-icon float-left"
-                                                        type="button"
-                                                        wire:click="delete({{$permission->id}})"
-                                                        wire:confirm="Are you sure?"
-                                                    >
-                                                        <i class="zmdi zmdi-delete"></i></i>
-                                                    </button>
-                                                    <button type="button"
-                                                            class="btn btn-secondary btn-icon float-left"
-                                                            wire:click="edit({{$permission->id}})">
-                                                        <i class="zmdi zmdi-edit"></i>
-                                                    </button>
+                                                    @can("delete $pageHandler")
+                                                        <button
+                                                            class="btn btn-danger btn-icon float-left"
+                                                            type="button"
+                                                            wire:click="delete({{$permission->id}})"
+                                                            wire:confirm="Are you sure?"
+                                                        >
+                                                            <i class="zmdi zmdi-delete"></i></i>
+                                                        </button>
+                                                    @endcan
+                                                    @can("update $pageHandler")
+                                                        <button type="button"
+                                                                class="btn btn-secondary btn-icon float-left"
+                                                                wire:click="edit({{$permission->id}})">
+                                                            <i class="zmdi zmdi-edit"></i>
+                                                        </button>
+                                                    @endcan
                                                 </td>
                                             </tr>
                                         @endforeach

@@ -30,8 +30,16 @@
                                                 <td>{{ $role->created_at->diffForHumans() }}</td>
                                                 <td>
                                                     <a
+                                                        class="btn btn-info btn-icon float-left"
+                                                        title="assign permissions"
+                                                        href="{{ route('assign-permissions', $role->id) }}"
+                                                    >
+                                                        <i class="zmdi zmdi-assignment"></i>
+                                                    </a>
+                                                    <a
                                                         class="btn btn-danger btn-icon float-left"
                                                         type="button"
+                                                        title="delete role"
                                                         wire:click="delete({{$role->id}})"
                                                         wire:confirm="Are you sure?"
                                                     >
@@ -39,6 +47,7 @@
                                                     </a>
                                                     <a
                                                         class="btn btn-secondary btn-icon float-left"
+                                                        title="edit role"
                                                         wire:navigate
                                                         href="{{ route('edit-role', $role->id) }}"
                                                     >
@@ -47,16 +56,16 @@
                                                 </td>
                                             </tr>
                                         @endforeach
+                                        <tr>
+                                            <td colspan="4">
+                                                {{ $roles->links('livewire::bootstrap') }}
+                                            </td>
+                                        </tr>
                                     @else
                                         <tr>
                                             <td colspan="4">Not data found.</td>
                                         </tr>
                                     @endif
-                                    <tr>
-                                        <td colspan="4">
-                                            {{ $roles->links('livewire::bootstrap') }}
-                                        </td>
-                                    </tr>
                                     </tbody>
                                 </table>
                             </div>

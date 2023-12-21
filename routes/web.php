@@ -5,6 +5,7 @@ use App\Livewire\Admin\Pages\ListPages;
 use App\Livewire\Admin\Permissions\EditPermission;
 use App\Livewire\Admin\Permissions\ListPermissions;
 use App\Livewire\Admin\Permissions\NewPermission;
+use App\Livewire\Admin\Roles\AssignPermissions;
 use App\Livewire\Admin\Roles\EditRole;
 use App\Livewire\Admin\Roles\ListRoles;
 use App\Livewire\Admin\Roles\NewRole;
@@ -52,6 +53,9 @@ Route::prefix('admin')->group(function () {
         Route::get('/edit-role/{role}', EditRole::class)
             ->middleware('auth')
             ->name('edit-role');
+        Route::get('/assign-permissions/{role}', AssignPermissions::class)
+            ->middleware('auth')
+            ->name('assign-permissions');
     });
 
     // Permissions routes
