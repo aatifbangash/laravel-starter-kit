@@ -1,6 +1,6 @@
 <section class="content">
     <div class="body_scroll">
-        <x-breadcrumb title="Permissions"/>
+        <x-breadcrumb title="Pages"/>
         <div class="container-fluid">
             <!-- Hover Rows -->
             <div class="row clearfix">
@@ -8,16 +8,16 @@
                     <div class="card">
                         <x-alert-success/>
                         <div class="header">
-                            <h2><strong>List</strong> Permissions</h2>
+                            <h2><strong>List</strong> Pages</h2>
                         </div>
 
                         <button
                             type="button"
                             class="btn btn-default waves-effect m-r-20 float-right"
                             wire:click="add">
-                            Add Permission
+                            Add Page
                         </button>
-                        {{--                        <livewire:admin.permissions.permission-modal />--}}
+                        {{--                        <livewire:admin.pages.page-modal />--}}
                         <div class="body">
                             <div class="table-responsive">
                                 <table class="table table-hover table-striped">
@@ -25,29 +25,31 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Name</th>
+                                        <th>Handle</th>
                                         <th>Created At</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @if($permissions->isNotEmpty())
-                                        @foreach($permissions as $permission)
-                                            <tr wire:key="{{ $permission->id }}">
-                                                <th scope="row">{{ $permission->id }}</th>
-                                                <td>{{ $permission->name }}</td>
-                                                <td>{{ $permission->created_at->diffForHumans() }}</td>
+                                    @if($pages->isNotEmpty())
+                                        @foreach($pages as $page)
+                                            <tr wire:key="{{ $page->id }}">
+                                                <th scope="row">{{ $page->id }}</th>
+                                                <td>{{ $page->name }}</td>
+                                                <td>{{ $page->handle }}</td>
+                                                <td>{{ $page->created_at->diffForHumans() }}</td>
                                                 <td>
                                                     <button
                                                         class="btn btn-danger btn-icon float-left"
                                                         type="button"
-                                                        wire:click="delete({{$permission->id}})"
+                                                        wire:click="delete({{$page->id}})"
                                                         wire:confirm="Are you sure?"
                                                     >
                                                         <i class="zmdi zmdi-delete"></i></i>
                                                     </button>
                                                     <button type="button"
                                                             class="btn btn-secondary btn-icon float-left"
-                                                            wire:click="edit({{$permission->id}})">
+                                                            wire:click="edit({{$page->id}})">
                                                         <i class="zmdi zmdi-edit"></i>
                                                     </button>
                                                 </td>
@@ -55,12 +57,12 @@
                                         @endforeach
                                     @else
                                         <tr>
-                                            <td colspan="4">Not data found.</td>
+                                            <td colspan="5">Not data found.</td>
                                         </tr>
                                     @endif
                                     <tr>
                                         <td colspan="4">
-                                            {{ $permissions->links('livewire::bootstrap') }}
+                                            {{ $pages->links('livewire::bootstrap') }}
                                         </td>
                                     </tr>
                                     </tbody>
@@ -74,6 +76,6 @@
         </div>
     </div>
 
-    @include("livewire.admin.permissions.permission-modal")
+    @include("livewire.admin.pages.page-modal", ['title' => 'Page'])
 </section>
 

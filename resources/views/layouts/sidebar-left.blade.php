@@ -60,13 +60,13 @@
                 </ul>
             </li>
 
-            <li class="{{ request()->is('admin/permissions/*') ? 'active open' : '' }}">
+            <li class="{{ request()->is('admin/pages/*') ? 'active open' : '' }}">
                 <a href="javascript:void(0);" class="menu-toggle">
                     <i class="zmdi zmdi-file-text"></i><span>Pages</span>
                 </a>
                 <ul class="ml-menu">
-                    <li class="{{ request()->is('admin/permissions/list-permissions') ? 'active' : '' }}">
-                        <a wire:navigate href="{{ route('list-permissions') }}">List Pages</a>
+                    <li class="{{ request()->is('admin/pages/list-pages') ? 'active' : '' }}">
+                        <a wire:navigate href="{{ route('list-pages') }}">List Pages</a>
                     </li>
                 </ul>
             </li>

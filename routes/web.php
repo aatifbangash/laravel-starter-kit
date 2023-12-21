@@ -1,6 +1,7 @@
 <?php
 
 use App\Livewire\Admin\Login;
+use App\Livewire\Admin\Pages\ListPages;
 use App\Livewire\Admin\Permissions\EditPermission;
 use App\Livewire\Admin\Permissions\ListPermissions;
 use App\Livewire\Admin\Permissions\NewPermission;
@@ -58,5 +59,12 @@ Route::prefix('admin')->group(function () {
         Route::get('/list-permissions', ListPermissions::class)
             ->middleware('auth')
             ->name('list-permissions');
+    });
+
+    // Pages routes
+    Route::prefix('pages')->group(function () {
+        Route::get('/list-pages', ListPages::class)
+            ->middleware('auth')
+            ->name('list-pages');
     });
 });
