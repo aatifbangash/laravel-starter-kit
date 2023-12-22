@@ -12,10 +12,11 @@ class ListPermissions extends Component
     use WithPagination;
 
     private string $pageHandler = 'permissions';
+    public ?int $editId = null;
 
     #[Rule(['string', 'required', 'unique:permissions,name'])]
     public string $name;
-    public ?int $editId = null;
+
 
     public function upsert()
     {

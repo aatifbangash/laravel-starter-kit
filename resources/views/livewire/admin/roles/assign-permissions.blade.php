@@ -10,6 +10,7 @@
                         <div class="header">
                             <h2>{{ $title }} to <strong>{{ $role->name }}</strong></h2>
                         </div>
+                        <a wire:navigate class="btn btn-primary float-right" href="{{ route("list-roles") }}">Back</a>
                         <div class="body">
                             <div class="table-responsive">
                                 <table class="table table-hover table-striped">

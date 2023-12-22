@@ -1,6 +1,6 @@
 <section class="content">
     <div class="body_scroll">
-        <x-breadcrumb title="Roles"/>
+        <x-breadcrumb title="{{ $pageTitle }}"/>
         <div class="container-fluid">
             <!-- Hover Rows -->
             <div class="row clearfix">
@@ -8,8 +8,16 @@
                     <div class="card">
                         <x-alert-success />
                         <div class="header">
-                            <h2><strong>List</strong> Roles</h2>
+                            <h2><strong>List</strong> {{ $pageTitle }}</h2>
                         </div>
+                        @can("create $pageHandler")
+                            <button
+                                type="button"
+                                class="btn btn-default waves-effect m-r-20 float-right"
+                                wire:click="add">
+                                Add {{$pageTitle}}
+                            </button>
+                        @endcan
                         <div class="body">
                             <div class="table-responsive">
                                 <table class="table table-hover table-striped">
@@ -32,27 +40,27 @@
                                                     <a
                                                         class="btn btn-info btn-icon float-left"
                                                         title="assign permissions"
+                                                        wire:navigate
                                                         href="{{ route('assign-permissions', $role->id) }}"
                                                     >
                                                         <i class="zmdi zmdi-assignment"></i>
                                                     </a>
-                                                    <a
-                                                        class="btn btn-danger btn-icon float-left"
-                                                        type="button"
-                                                        title="delete role"
-                                                        wire:click="delete({{$role->id}})"
-                                                        wire:confirm="Are you sure?"
-                                                    >
-                                                        <i class="zmdi zmdi-delete"></i></i>
-                                                    </a>
-                                                    <a
-                                                        class="btn btn-secondary btn-icon float-left"
-                                                        title="edit role"
-                                                        wire:navigate
-                                                        href="{{ route('edit-role', $role->id) }}"
-                                                    >
-                                                        <i class="zmdi zmdi-edit"></i>
-                                                    </a>
+                                                    @can("delete $pageHandler")
+                                                        <button
+                                                            class="btn btn-danger btn-icon float-left"
+                                                            type="button"
+                                                            wire:click="delete({{$role->id}})"
+                                                            wire:confirm="Are you sure?">
+                                                            <i class="zmdi zmdi-delete"></i></i>
+                                                        </button>
+                                                    @endcan
+                                                    @can("update $pageHandler")
+                                                        <button type="button"
+                                                                class="btn btn-secondary btn-icon float-left"
+                                                                wire:click="edit({{$role->id}})">
+                                                            <i class="zmdi zmdi-edit"></i>
+                                                        </button>
+                                                    @endcan
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -76,4 +84,5 @@
             <!-- #END# Hover Rows -->
         </div>
     </div>
+    @include("livewire.admin.roles.role-modal", ['title' => $pageTitle])
 </section>

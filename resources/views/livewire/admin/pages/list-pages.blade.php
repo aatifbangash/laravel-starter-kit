@@ -79,3 +79,12 @@
     @include("livewire.admin.pages.page-modal", ['title' => 'Page'])
 </section>
 
+@script
+<script>
+    $(document).ready(function() {
+       $('#btntest').on('click', function() {
+           console.log('aaa')
+       })
+    });
+</script>
+@endscript

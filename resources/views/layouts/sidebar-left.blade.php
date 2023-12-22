@@ -30,9 +30,6 @@
                     <li class="{{ request()->is('admin/users/list-users') ? 'active' : '' }}">
                         <a wire:navigate href="{{ route('list-users') }}">List Users</a>
                     </li>
-                    <li class="{{ request()->is('admin/users/new-user') ? 'active' : '' }}">
-                        <a wire:navigate href="{{ route('new-user') }}">New User</a>
-                    </li>
                 </ul>
             </li>
 
@@ -43,9 +40,6 @@
                 <ul class="ml-menu">
                     <li class="{{ request()->is('admin/roles/list-roles') ? 'active' : '' }}">
                         <a wire:navigate href="{{ route('list-roles') }}">List Roles</a>
-                    </li>
-                    <li class="{{ request()->is('admin/roles/new-role') ? 'active' : '' }}">
-                        <a wire:navigate href="{{ route('new-role') }}">New Role</a>
                     </li>
                 </ul>
             </li>
