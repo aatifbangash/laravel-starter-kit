@@ -50,6 +50,24 @@
                                 </label>
                                 @enderror
                             </div>
+                            <div class="form-group form-float">
+                                <select
+                                    name="role"
+                                    wire:model="role"
+                                    class="form-control show-tick">
+                                    <option value="">Select Role*</option>
+                                    @if($roles->isNotEmpty())
+                                        @foreach($roles as $role)
+                                            <option value="{{ $role->name }}">{{ $role->name }}</option>
+                                        @endforeach
+                                    @endif
+                                </select>
+                                @error('role')
+                                <label id="role-error" class="error" for="role">
+                                    {{ $message }}
+                                </label>
+                                @enderror
+                            </div>
                         </div>
                     </div>
                 </div>

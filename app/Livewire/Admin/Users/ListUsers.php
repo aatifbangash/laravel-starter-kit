@@ -9,6 +9,7 @@ use Livewire\Attributes\Rule;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class ListUsers extends Component
 {
@@ -27,6 +28,9 @@ class ListUsers extends Component
     #[Rule('required')]
     public string $password;
 
+    #[Rule('required')]
+    public string $role = "";
+
     public function upsert()
     {
         if ($this->editId) {
@@ -35,17 +39,25 @@ class ListUsers extends Component
                 'email' => "required|email|unique:users,email,$this->editId"
             ];
             $this->validate($validationRules);
-            User::find($this->editId)->update([
+
+            $user = User::findOrFail($this->editId);
+            $user->update([
                 'name' => $this->name,
                 'email' => $this->email
             ]);
+            $user->syncRoles([$this->role]); //reset roles
+
         } else {
             $this->validate();
-            User::create([
+            $newUser = User::create([
                 'name' => $this->name,
                 'email' => $this->email,
                 'password' => Hash::make($this->password)
             ]);
+
+            if (!empty($this->role))
+                $newUser->assignRole($this->role);
+
         }
         session()->flash("success", sprintf(
                 "New user %s successfully.",
@@ -70,6 +82,7 @@ class ListUsers extends Component
         $this->name = $user->name;
         $this->email = $user->email;
         $this->password = "********";
+        $this->role = $user->getRoleNames()->first() ?? "";
         $this->dispatch('openModal');
     }
 
@@ -82,7 +95,7 @@ class ListUsers extends Component
 
     public function resetModal()
     {
-        $this->reset(['editId', 'name', 'email', 'password']);
+        $this->reset();
         $this->resetErrorBag();
         $this->resetValidation();
     }
@@ -90,6 +103,7 @@ class ListUsers extends Component
     public function render()
     {
         return view('livewire.admin.users.list-users', [
+            'roles' => Role::all(),
             'users' => User::with('roles:name')->orderByDesc('id')->paginate(15)
         ])
             ->title("List Users - ");

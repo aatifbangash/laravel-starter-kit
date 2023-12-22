@@ -6,7 +6,7 @@
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12">
                     <div class="card">
-                        <x-alert-success />
+                        <x-alert-success/>
                         <div class="header">
                             <h2><strong>List</strong> {{ $pageTitle }}</h2>
                         </div>
@@ -40,7 +40,7 @@
                                                     <a
                                                         class="btn btn-info btn-icon float-left"
                                                         title="assign permissions"
-                                                        wire:navigate
+                                                        {{--wire:navigate--}}
                                                         href="{{ route('assign-permissions', $role->id) }}"
                                                     >
                                                         <i class="zmdi zmdi-assignment"></i>
